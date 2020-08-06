@@ -10,21 +10,25 @@ def clock_start():
     minutes = 0
     hours = 0
     start_time = datetime.datetime.now()
+    var1 = []
 
     if (start_time.hour >= 13):
         twelve_hour = start_time.hour - 12
         print("Current time (PM):")
-        print(twelve_hour, start_time.minute, start_time.second, sep=":",)
+        var1 = [twelve_hour, start_time.minute]
+        print(':'.join(str(x) for x in list(var1)))
     else:
         print("Current time (AM):")
-        print(start_time.hour, start_time.minute, start_time.second, sep=":",)
+        var1 = [start_time.hour, start_time.minute]
+        print(':'.join(str(x) for x in list(var1)))
 
 
     conf = input("Please confirm that you would like to start now (Y/N):")
     if (conf.lower() == "y"):
         os.system('cls')
-        input("Started Clock. Press Enter to end.")
-        print("Ended.")
+        print("Started Clock at " + ':'.join(str(x) for x in list(var1)) + "." + " Press Enter to end.")
+        input("Press any key to end.")
+        os.system('cls')
         end_time = datetime.datetime.now()
         difference = end_time - start_time
         difference_in_seconds = difference.total_seconds()
@@ -35,7 +39,8 @@ def clock_start():
             hours += 1
             minutes =- 60
 
-        print("You worked for: " + str(hours) + " hour(s) and " + str(minutes) + " minutes.")
+        print("Ended. You worked for: " + str(hours) + " hour(s) and " + str(minutes) + " minutes.")
+        input("Press any key to exit.")
         sys.exit()
 
     elif (conf.lower() == "n"):
@@ -77,8 +82,8 @@ def start_menu():
         os.system('cls')
         manual_time()
     else:
-        input("Invalid Input. Press key to proceed.")
-        start_menu()
+        input("Invalid Input. Exiting..")
+        exit()
 
 
 start_menu()
